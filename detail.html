@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - Каталог продуктів{% endblock %}
+
+{% block content %}
+<a href="{% url 'products:product_list' %}" class="btn btn-back" style="margin-bottom: 20px;">← Назад до списку</a>
+
+<div class="product-detail">
+    <h1>{{ product.name }}</h1>
+    
+    <div class="description">
+        {{ product.description|linebreaks }}
+    </div>
+    
+    <h2>Інформація про товар</h2>
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Ціна:</strong></td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee; color: #27ae60; font-size: 24px; font-weight: bold;">{{ product.price }} грн</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Дата додавання:</strong></td>
+            <td style="padding: 10px; border-bottom: 1px solid #eee;">📅 {{ product.created_at|date:"d.m.Y H:i" }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px;"><strong>ID товару:</strong></td>
+            <td style="padding: 10px;">#{{ product.pk }}</td>
+        </tr>
+    </table>
+    
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{% url 'products:product_list' %}" class="btn btn-back">← Повернутися до каталогу</a>
+    </div>
+</div>
+{% endblock %}

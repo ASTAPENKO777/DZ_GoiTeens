@@ -1,0 +1,21 @@
+{% if page_obj.has_other_pages %}
+<div style="margin-top: 40px; text-align: center;">
+    <div style="display: inline-block; padding: 10px 20px; background-color: white; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="margin-right: 10px;">← Назад</a>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span style="display: inline-block; width: 35px; height: 35px; line-height: 35px; margin: 0 5px; background-color: #3498db; color: white; border-radius: 50%;">{{ num }}</span>
+            {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                <a href="?page={{ num }}" style="display: inline-block; width: 35px; height: 35px; line-height: 35px; margin: 0 5px; text-decoration: none; background-color: #f8f9fa; border-radius: 50%; border: 1px solid #ddd;">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn" style="margin-left: 10px;">Вперед →</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

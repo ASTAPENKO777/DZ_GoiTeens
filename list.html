@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Список товарів - Каталог продуктів{% endblock %}
+
+{% block content %}
+<h1>Каталог продуктів</h1>
+<p style="color: #7f8c8d; margin-bottom: 20px;">Знайдено {{ page_obj.paginator.count }} товарів</p>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <h3>{{ product.name|upper }}</h3>
+        <p style="color: #666; margin-bottom: 15px; min-height: 60px;">{{ product.description|truncatewords:20 }}</p>
+        <div class="product-price">{{ product.price }} грн</div>
+        <div class="product-date">📅 {{ product.created_at|date:"d.m.Y" }}</div>
+        <a href="{% url 'products:product_detail' product.pk %}" class="btn">Переглянути деталі</a>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+        <h3 style="color: #7f8c8d;">😔 Товари відсутні</h3>
+        <p>Будь ласка, завантажте товари через адмін-панель або команду.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'paginator.html' %}
+{% endblock %}
